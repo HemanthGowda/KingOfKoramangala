@@ -2,39 +2,39 @@ import {Button, Container, Row} from "react-bootstrap";
 import "./board.css"
 import {Dice} from "../dice/dice";
 import React from "react";
+import {map} from "lodash"
 
 export default class Game extends React.Component {
-	const
-
 	constructor(props) {
 		super(props);
 		this.state = {
-			diceValues: {
-				1: undefined,
-				2: undefined,
-				3: undefined,
-				4: undefined,
-				5: undefined,
-				6: undefined
-			}
+			dice: [
+				{selected: true, value: undefined},
+				{selected: true, value: undefined},
+				{selected: true, value: undefined},
+				{selected: true, value: undefined},
+				{selected: true, value: undefined},
+				{selected: true, value: undefined}
+			]
 		}
 	}
 
 	rollDice = () => {
-		this.setState({
-			diceValues: {
-				1: Math.floor(Math.random() * 6) + 1,
-				2: Math.floor(Math.random() * 6) + 1,
-				3: Math.floor(Math.random() * 6) + 1,
-				4: Math.floor(Math.random() * 6) + 1,
-				5: Math.floor(Math.random() * 6) + 1,
-				6: Math.floor(Math.random() * 6) + 1
+		let updatedDice = map(this.state.dice, (diceValue) => {
+			if (!diceValue.selected) {
+				return {selected: false, value: diceValue.value}
 			}
-		})
+			return ({
+				selected: false,
+				value: Math.floor(Math.random() * 6) + 1
+			});
+		});
+
+		this.setState({dice: updatedDice})
 	}
 
 	render() {
-		const {diceValues} = this.state;
+		const {dice} = this.state;
 		return <Container className={"board-container"}>
 			<Row>
 				<Button variant={"danger"} onClick={this.rollDice}>Roll Dice</Button>
@@ -43,12 +43,7 @@ export default class Game extends React.Component {
 
 			</Row>
 			<Row className={"dice-container"}>
-				<Dice value={diceValues[1]}/>
-				<Dice value={diceValues[2]}/>
-				<Dice value={diceValues[3]}/>
-				<Dice value={diceValues[4]}/>
-				<Dice value={diceValues[5]}/>
-				<Dice value={diceValues[6]}/>
+				{dice.map((die, i) => <Dice die={die} key={i}/>)}
 			</Row>
 		</Container>
 	}

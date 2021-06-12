@@ -3,7 +3,6 @@ import {AiFillHeart, AiFillStar} from "react-icons/all";
 import "./player.css"
 
 export function Player(props) {
-	console.log(props)
 	return !props.player ? null : <Container>
 		<Row>
 			<Col xs={12}>

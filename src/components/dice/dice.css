@@ -1,8 +1,11 @@
 .dice {
     text-align: center;
     font-size: xxx-large;
-    background-color: aquamarine;
-    border: 1px solid white;
+    background-color: rgba(51, 180, 134, 0.71);
     border-radius: 15px;
+    color: white;
+}
+
+.selected {
     color: black;
 }

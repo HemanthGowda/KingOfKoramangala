@@ -16,11 +16,10 @@ export default class Game extends React.Component {
 	}
 
 	componentDidMount() {
-		let gamePromise = getGame("game");
+		let gamePromise = getGame("room1");
 		gamePromise.then((d) => {
 			this.setState({players: values(d.toJSON().players)})
 		})
-
 	}
 
 	componentDidUpdate() {
