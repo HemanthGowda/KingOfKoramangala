@@ -6,3 +6,7 @@ export const createGame = async (roomName) => {
 		players: []
 	});
 }
+
+export const getGame = async (roomName) => {
+	return database.ref('games/' + roomName).get()
+}

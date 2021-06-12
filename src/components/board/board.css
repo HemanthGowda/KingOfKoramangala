@@ -1,0 +1,11 @@
+.board-container {
+    color: white;
+}
+.excess {
+    height: 360px;
+}
+
+.dice-container {
+    height: 80px;
+    text-align: center;
+}
