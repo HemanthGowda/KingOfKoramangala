@@ -1,7 +1,7 @@
 import {Button, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
-import {createGame} from "../../store/game";
-import {createPlayer} from "../../store/player";
+import {createGame} from "../../datastore/game";
+import {createPlayer} from "../../datastore/player";
 
 export function Join() {
 	const history = useHistory();
