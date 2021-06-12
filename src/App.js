@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {Join} from "./routes/join/join";
 import {Home} from "./routes/home/home";
 import {Create} from "./routes/create/create";
+import {Game} from "./routes/game/game";
 
 function App() {
 	return (
@@ -16,6 +17,9 @@ function App() {
 					</Route>
 					<Route path="/join">
 						<Join/>
+					</Route>
+					<Route path="/game/:id">
+						<Game/>
 					</Route>
 
 					{/* If none of the previous routes render anything,
