@@ -1,0 +1,28 @@
+.vertical-player {
+    border: 1px solid #282c34;
+    height: 400px;
+    margin: 10px 1px !important;
+    padding: 0 !important;
+}
+
+.horizontal-player {
+    border: 1px solid #282c34;
+    height: 155px;
+    margin: 10px 1px !important;
+    padding: 0 !important;
+}
+
+.board {
+    border: 1px solid #282c34;
+    height: 480px;
+    margin: 10px 1px !important;
+}
+
+.board-layout {
+    padding: 0 !important;
+}
+
+.player-layout {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
