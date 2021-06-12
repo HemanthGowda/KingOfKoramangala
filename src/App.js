@@ -17,6 +17,16 @@ function App() {
 					<Route path="/join">
 						<Join/>
 					</Route>
+<<<<<<< HEAD
+=======
+
+					{/* If none of the previous routes render anything,
+                        this route acts as a fallback.
+
+                        Important: A route with path="/" will *always* match
+                        the URL because all URLs begin with a /. So that's
+                        why we put this one last of all */}
+>>>>>>> d983f8316a4f16cf23be41bd6830c938adafa2c1
 					<Route path="/">
 						<Home/>
 					</Route>
