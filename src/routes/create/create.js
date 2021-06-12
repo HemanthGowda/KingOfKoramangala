@@ -10,8 +10,8 @@ export function Create() {
 
 
 	async function CreateGame() {
-		let gameId = await createGame(roomName);
-		await createPlayer(gameId, userName)
+		await createGame(roomName);
+		await createPlayer(roomName, userName)
 
 		history.push("/game/" + roomName);
 	}
@@ -38,7 +38,7 @@ export function Create() {
 					/>
 				</Row>
 				<Row>
-						<Button margin="auto" variant="outline-primary" onClick={CreateGame}>Create</Button>
+					<Button margin="auto" variant="outline-primary" onClick={CreateGame}>Create</Button>
 				</Row>
 			</Col>
 		</Row>
