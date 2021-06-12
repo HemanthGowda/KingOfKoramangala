@@ -1,13 +1,15 @@
 import {Button, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
+import {createPlayer} from "../../store/player";
 
 
 export function Join() {
 	const history = useHistory();
-	let value;
+	let gameName, playerName;
 
-	function JoinGame() {
-		history.push("/game/" + value);
+	async function JoinGame() {
+		await createPlayer(gameName, playerName)
+		history.push("/game/" + gameName);
 	}
 
 	return <Container fluid>
@@ -19,7 +21,21 @@ export function Join() {
 						placeholder="Game Name"
 						aria-label="Game Name"
 						onChange={event => {
-							value = event.target.value
+							gameName = event.target.value
+						}}
+					/>
+					<InputGroup.Append>
+						<Button variant="outline-primary" onClick={JoinGame}>Join</Button>
+					</InputGroup.Append>
+				</InputGroup>
+			</Col>
+			<Col>
+				<InputGroup className="mb-3">
+					<FormControl
+						placeholder="Player Name"
+						aria-label="Player Name"
+						onChange={event => {
+							playerName = event.target.value
 						}}
 					/>
 					<InputGroup.Append>
