@@ -1,5 +1,6 @@
 import {Col, Container, Row} from "react-bootstrap";
 import "./game.css"
+import {Player} from "../../components/player/player";
 
 export function Game() {
 	return <Container>
@@ -9,7 +10,9 @@ export function Game() {
 				<Row className={"vertical-player"}/>
 			</Col>
 			<Col xs={8} className={"board-layout"}>
-				<Row className={"horizontal-player"}/>
+				<Row className={"horizontal-player"}>
+				<Player/>
+				</Row>
 				<Row className={"board"}/>
 				<Row className={"horizontal-player"}/>
 			</Col>

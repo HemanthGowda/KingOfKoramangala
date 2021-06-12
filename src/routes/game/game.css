@@ -16,6 +16,7 @@
     border: 1px solid #282c34;
     height: 480px;
     margin: 10px 1px !important;
+    background-image: url("../../assets/images/board.png");
 }
 
 .board-layout {
