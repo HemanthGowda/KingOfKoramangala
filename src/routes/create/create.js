@@ -2,18 +2,22 @@ import {Button, Col, Container, FormControl, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
 import {createGame} from "../../store/game";
 import {createPlayer} from "../../store/player";
-
+var randomstring = require("randomstring");
 
 export function Create() {
 	const history = useHistory();
-	let userName, roomName;
-
+	let userName;
 
 	async function CreateGame() {
-		await createGame(roomName);
-		await createPlayer(roomName, userName)
+		if (userName.length > 0) {
+			const roomName = randomstring.generate(5);
+			await createGame(roomName);
+			await createPlayer(roomName, userName);
 
-		history.push("/game/" + roomName);
+			history.push("/game/" + roomName);
+		} else {
+			console.log("#Todo : Complain about how the user needs a name")
+		}
 	}
 
 	return <Container fluid>
@@ -25,15 +29,6 @@ export function Create() {
 						aria-label="User Name"
 						onChange={event => {
 							userName = event.target.value
-						}}
-					/>
-				</Row>
-				<Row>
-					<FormControl
-						placeholder="Room name"
-						aria-label="Room name"
-						onChange={event => {
-							roomName = event.target.value
 						}}
 					/>
 				</Row>

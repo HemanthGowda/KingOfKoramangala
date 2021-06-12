@@ -1,33 +1,47 @@
 import {Button, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
-
+import {createGame} from "../../store/game";
+import {createPlayer} from "../../store/player";
 
 export function Join() {
 	const history = useHistory();
-	let value;
+	let roomName, userName;
 
-	function JoinGame() {
-		history.push("/game/" + value);
+	async function JoinGame() {
+		var error = await createPlayer(roomName, userName)
+		if (error) {
+			console.log(error);
+			console.log("Todo : Complain about non existent rooms");
+		} else {
+			history.push("/game/" + roomName);
+		}
 	}
 
 	return <Container fluid>
 		<Row className="justify-content-md-center">
-			<Col sm={5}/>
-			<Col>
-				<InputGroup className="mb-3">
+			<Col sm={5}>
+				<Row>
 					<FormControl
-						placeholder="Game Name"
-						aria-label="Game Name"
+						placeholder="User Name"
+						aria-label="User Name"
 						onChange={event => {
-							value = event.target.value
+							userName = event.target.value
 						}}
 					/>
-					<InputGroup.Append>
-						<Button variant="outline-primary" onClick={JoinGame}>Join</Button>
-					</InputGroup.Append>
-				</InputGroup>
+				</Row>
+					<Row>
+						<FormControl
+							placeholder="Room Name"
+							aria-label="Room Name"
+							onChange={event => {
+								roomName = event.target.value
+							}}
+						/>
+					</Row>
+				<Row>
+					<Button margin="auto" variant="outline-primary" onClick={JoinGame}>Join</Button>
+				</Row>
 			</Col>
-			<Col sm={5}/>
 		</Row>
 	</Container>;
 }
