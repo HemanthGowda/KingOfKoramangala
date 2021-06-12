@@ -1,13 +1,19 @@
-import {Button, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
+import {Button, Col, Container, FormControl, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
+import {createGame} from "../../store/game";
+import {createPlayer} from "../../store/player";
 
 
 export function Create() {
 	const history = useHistory();
-	let userHandle, gameCode;
+	let userName, roomName;
 
-	function CreateGame() {
-		history.push("/game/" + gameCode);
+
+	async function CreateGame() {
+		let gameId = await createGame(roomName);
+		await createPlayer(gameId, userName)
+
+		history.push("/game/" + roomName);
 	}
 
 	return <Container fluid>
@@ -15,19 +21,19 @@ export function Create() {
 			<Col sm={5}>
 				<Row>
 					<FormControl
-						placeholder="User Handle"
-						aria-label="User Handle"
+						placeholder="User Name"
+						aria-label="User Name"
 						onChange={event => {
-							userHandle = event.target.value
+							userName = event.target.value
 						}}
 					/>
 				</Row>
 				<Row>
 					<FormControl
-						placeholder="Game Code"
-						aria-label="Game Code"
+						placeholder="Room name"
+						aria-label="Room name"
 						onChange={event => {
-							gameCode = event.target.value
+							roomName = event.target.value
 						}}
 					/>
 				</Row>
