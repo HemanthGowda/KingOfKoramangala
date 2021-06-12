@@ -3,8 +3,9 @@ import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import "./game.css"
 import {Player} from "../../components/player/player";
-import {getGame} from "../../store/game";
+import {getGame} from "../../datastore/game";
 import {values} from "lodash";
+import Board from "../../components/board/board";
 
 export default class Game extends React.Component {
 	constructor(props) {
@@ -41,7 +42,9 @@ export default class Game extends React.Component {
 					<Row className={"horizontal-player"}>
 						<Player player={players[2]}/>
 					</Row>
-					<Row className={"board"}/>
+					<Row className={"board"}>
+						<Board/>
+					</Row>
 					<Row className={"horizontal-player"}>
 						<Player player={players[3]}/>
 					</Row>

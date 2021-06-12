@@ -1,6 +1,6 @@
 import {Button, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
-import {createPlayer} from "../../store/player";
+import {createPlayer} from "../../datastore/player";
 
 
 export function Join() {
