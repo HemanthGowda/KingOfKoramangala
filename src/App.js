@@ -13,6 +13,15 @@ function App() {
 						<Link to="/join">Join Game</Link>
 					</li>
 				</ul>
+
+				{/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+				<Switch>
+					<Route path="/create">
+					</Route>
+					<Route path="/join">
+					</Route>
+				</Switch>
 			</div>
 		</Router>
 	);
