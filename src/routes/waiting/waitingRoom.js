@@ -1,9 +1,10 @@
 import {Component} from "react";
-import {Container, ListGroup} from "react-bootstrap";
+import {Button, Col, Container, ListGroup, Row} from "react-bootstrap";
 import {getGame} from "../../datastore/game";
 import {withRouter} from "react-router-dom";
 import rd from "../../datastore/db"
 import {values} from "lodash"
+import "./waitingRoom.css"
 
 class WaitingRoom extends Component {
 	constructor(props) {
@@ -34,9 +35,18 @@ class WaitingRoom extends Component {
 
 		const {players} = this.state.game
 		return <Container>
-			<ListGroup>
-				{values(players).map(p => <ListGroup.Item key={p.name}>{p.name}</ListGroup.Item>)}
-			</ListGroup>
+			<Row>
+				<Col md={{ span: 4, offset: 4 }}>
+					Joined Players:
+					<br/>
+					<br/>
+					<ListGroup>
+						{values(players).map(p => <ListGroup.Item key={p.name}>{p.name}</ListGroup.Item>)}
+					</ListGroup>
+					<br/>
+					<Button variant={"success"} className={"start-button"}>Start Game</Button>
+				</Col>
+			</Row>
 		</Container>
 	}
 }
