@@ -1,7 +1,7 @@
 import {Button, Col, Container, FormControl, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
-import {createGame} from "../../datastore/game";
-import {createPlayer} from "../../datastore/player";
+import {createGame} from "../../firebase/game";
+import {createPlayer} from "../../firebase/player";
 var randomstring = require("randomstring");
 
 export function Create() {

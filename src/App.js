@@ -1,10 +1,10 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import Join from "./routes/join/join";
-import {Home} from "./routes/home/home";
-import {Create} from "./routes/create/create";
-import Game from "./routes/game/game";
-import WaitingRoom from "./routes/waiting/waitingRoom";
+import Join from "./pages/join/join";
+import {Home} from "./pages/home/home";
+import {Create} from "./pages/create/create";
+import Game from "./pages/game/game";
+import WaitingRoom from "./pages/waiting/waitingRoom";
 
 function App() {
 	return (
@@ -26,7 +26,7 @@ function App() {
 						<Game/>
 					</Route>
 
-					{/* If none of the previous routes render anything,
+					{/* If none of the previous pages render anything,
                         this route acts as a fallback.
 
                         Important: A route with path="/" will *always* match

@@ -3,7 +3,7 @@ import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import "./game.css"
 import {Player} from "../../components/player/player";
-import {getGame} from "../../datastore/game";
+import {getGame} from "../../firebase/game";
 import {values} from "lodash";
 import Board from "../../components/board/board";
 import {withRouter} from "react-router-dom";
