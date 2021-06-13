@@ -4,7 +4,7 @@ import Join from "./routes/join/join";
 import {Home} from "./routes/home/home";
 import {Create} from "./routes/create/create";
 import Game from "./routes/game/game";
-import {WaitingRoom} from "./routes/waiting/waitingRoom";
+import WaitingRoom from "./routes/waiting/waitingRoom";
 
 function App() {
 	return (
@@ -20,7 +20,7 @@ function App() {
 						<Join/>
 					</Route>
 					<Route path="/game/:id/waitingRoom">
-						<WaitingRoom />
+						<WaitingRoom/>
 					</Route>
 					<Route path="/game/:id">
 						<Game/>

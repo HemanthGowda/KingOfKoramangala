@@ -6,8 +6,9 @@ import {Player} from "../../components/player/player";
 import {getGame} from "../../datastore/game";
 import {values} from "lodash";
 import Board from "../../components/board/board";
+import {withRouter} from "react-router-dom";
 
-export default class Game extends React.Component {
+class Game extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -15,11 +16,14 @@ export default class Game extends React.Component {
 		}
 	}
 
-	componentDidMount() {
-		let gamePromise = getGame("room1");
-		gamePromise.then((d) => {
-			this.setState({players: values(d.toJSON().players)})
-		})
+	async componentDidMount() {
+		let roomName = this.props.match.params.id;
+		let game = await getGame(roomName);
+		if (!game.started) {
+			this.props.history.push("/game/" + roomName + "/waitingRoom")
+			return
+		}
+		this.setState({players: values(game.toJSON().players)})
 	}
 
 	componentDidUpdate() {
@@ -60,3 +64,5 @@ export default class Game extends React.Component {
 		</Container>
 	}
 }
+
+export default withRouter(Game)

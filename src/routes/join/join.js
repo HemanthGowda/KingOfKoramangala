@@ -18,7 +18,7 @@ class Join extends Component {
 		if (error) {
 			this.setState({error: error.error})
 		} else {
-			this.props.history.push("/game/" + this.state.roomName)
+			this.props.history.push("/game/" + this.state.roomName + "/waitingRoom")
 		}
 	}
 

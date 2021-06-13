@@ -14,7 +14,7 @@ export function Create() {
 			await createGame(roomName);
 			await createPlayer(roomName, userName, true);
 
-			history.push("/game/" + roomName);
+			history.push("/game/" + roomName + "/waitingRoom");
 		} else {
 			console.log("#Todo : Complain about how the user needs a name")
 		}
