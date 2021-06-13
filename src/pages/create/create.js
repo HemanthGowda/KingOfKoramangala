@@ -3,10 +3,14 @@ import {useHistory} from "react-router-dom";
 import {createRoom} from "../../firebase/game";
 import {createPlayer} from "../../firebase/player";
 import {useState} from "react";
+import {v4 as uuid} from 'uuid';
+import {updatePlayerId} from "../../reducers/player";
+import {useDispatch} from "react-redux";
 
 var randomstring = require("randomstring");
 
 export function Create() {
+	const dispatch = useDispatch()
 	const history = useHistory();
 	const [playerName, setPlayerName] = useState("");
 	const [error, setError] = useState(undefined);
@@ -17,7 +21,9 @@ export function Create() {
 		if (playerName.length > 0) {
 			const roomName = randomstring.generate(5);
 			await createRoom(roomName);
-			await createPlayer(roomName, playerName, true);
+			let id = uuid()
+			await createPlayer(id, roomName, playerName, true);
+			dispatch(updatePlayerId(id))
 			history.push("/game/" + roomName + "/waitingRoom");
 		} else {
 			setError("Player name is required")
@@ -42,7 +48,8 @@ export function Create() {
 					/>
 				</Row>
 				<Row>
-					<Button margin="auto" variant="outline-primary" onClick={onCreate}>{loading ? 'Creating…' : 'Create Room'}</Button>
+					<Button margin="auto" variant="outline-primary"
+					        onClick={onCreate}>{loading ? 'Creating…' : 'Create Room'}</Button>
 				</Row>
 			</Col>
 		</Row>

@@ -1,3 +1,7 @@
 .start-button {
+    float: left;
+}
+
+.ready-button {
     float: right;
 }

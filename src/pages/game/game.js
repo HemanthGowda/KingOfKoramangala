@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchGameRoom, selectGame, updateGame} from "../../reducers/game";
 import db from "../../firebase/db";
 import WaitingRoom from "./waitingRoom";
+import {selectPlayer} from "../../reducers/player";
 
 function Game(props) {
 	const dispatch = useDispatch()
@@ -29,11 +30,12 @@ function Game(props) {
 	}, [])
 
 	const game = useSelector(selectGame);
+	const player = useSelector(selectPlayer);
 
 	if (!game) {
 		return null
 	}
-	console.log(game)
+
 	const {players} = game
 	return game.started ? <Container>
 		<Row>
@@ -65,7 +67,7 @@ function Game(props) {
 				</Row>
 			</Col>
 		</Row>
-	</Container> : <WaitingRoom game={game}/>
+	</Container> : <WaitingRoom game={game} player={player}/>
 }
 
 export default withRouter(Game)

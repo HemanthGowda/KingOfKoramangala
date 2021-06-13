@@ -2,8 +2,12 @@ import {Alert, Button, Col, Container, FormControl, Row} from "react-bootstrap";
 import {createPlayer} from "../../firebase/player";
 import {withRouter} from 'react-router-dom'
 import {useState} from "react";
+import {v4 as uuid} from 'uuid';
+import {useDispatch} from "react-redux";
+import {updatePlayerId} from "../../reducers/player";
 
 function Join(props) {
+	const dispatch = useDispatch()
 	const [error, setError] = useState(undefined);
 	const [loading, setLoading] = useState(false);
 	const [playerName, setPlayerName] = useState("");
@@ -11,10 +15,13 @@ function Join(props) {
 
 	const joinGame = async () => {
 		setLoading(true)
-		const error = await createPlayer(roomName, playerName);
+		let id = uuid()
+		const response = await createPlayer(id, roomName, playerName);
+		dispatch(updatePlayerId(id))
+
 		setLoading(false)
-		if (error) {
-			setError(error.error)
+		if (response) {
+			setError(response.error)
 		} else {
 			props.history.push("/game/" + roomName + "/waitingRoom")
 		}

@@ -4,9 +4,9 @@ import React from 'react';
 import {values} from "lodash"
 
 export default function WaitingRoom(props) {
-	const {game} = props;
+	const {game, player} = props;
 
-	return game ? <Container>
+	return game && player ? <Container>
 		<Row>
 			<Col md={{span: 4, offset: 4}}>
 				Joined Players:
@@ -16,7 +16,8 @@ export default function WaitingRoom(props) {
 					{values(game.players).map(p => <ListGroup.Item key={p.name}>{p.name}</ListGroup.Item>)}
 				</ListGroup>
 				<br/>
-				<Button variant={"success"} className={"start-button"}>Start Game</Button>
+				{player.facilitator ? <Button variant={"primary"} className={"start-button"}>Start Game</Button> : null}
+				{player.state === "waiting" ? <Button variant={"success"} className={"ready-button"}>Ready!</Button> : null}
 			</Col>
 		</Row>
 	</Container> : null
