@@ -3,19 +3,21 @@ import {AiFillHeart, AiFillStar} from "react-icons/all";
 import "./player.css"
 
 export function Player(props) {
-	return !props.player ? null : <Container>
+	const {player} = props
+	return !player ? null : <Container>
 		<Row>
 			<Col xs={12}>
 				<span>
-					{props.player.currentScore} <AiFillStar className={"star-icon"}/>
+					{player.currentScore} <AiFillStar className={"star-icon"}/>
 				</span>
 				<span>
-					{props.player.currentHealth} <AiFillHeart className={"health-icon"}/>
+					{player.currentHealth} <AiFillHeart className={"health-icon"}/>
 				</span>
 			</Col>
 		</Row>
 		<Row>
 			<Col xs={12}>
+				{player.name}
 				Character name and photo goes here
 			</Col>
 		</Row>
