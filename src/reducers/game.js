@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import {getRoom} from "../../firebase/game";
+import {getRoom} from "../firebase/game";
 
 export const fetchGameRoom = createAsyncThunk(
 	'rooms/fetchByName',
@@ -29,7 +29,7 @@ const slice = createSlice({
 		}
 	}
 })
-export const { updateGame } = slice.actions;
+export const {updateGame} = slice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

@@ -6,7 +6,7 @@ import {Player} from "../../components/player/player";
 import Board from "../../components/board/board";
 import {withRouter} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchGameRoom, selectGame, updateGame} from "./slice";
+import {fetchGameRoom, selectGame, updateGame} from "../../reducers/game";
 import db from "../../firebase/db";
 import WaitingRoom from "./waitingRoom";
 
