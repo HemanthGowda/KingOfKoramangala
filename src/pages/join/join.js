@@ -39,8 +39,8 @@ function Join(props) {
 				</Row>
 				<Row>
 					<FormControl
-						placeholder="Room Name"
-						aria-label="Room Name"
+						placeholder="Game Name"
+						aria-label="Game Name"
 						onChange={(e) => {
 							setError(undefined)
 							setRoomName(e.target.value);

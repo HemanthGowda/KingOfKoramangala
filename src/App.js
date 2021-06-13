@@ -4,7 +4,6 @@ import Join from "./pages/join/join";
 import {Home} from "./pages/home/home";
 import {Create} from "./pages/create/create";
 import Game from "./pages/game/game";
-import WaitingRoom from "./pages/waiting/waitingRoom";
 
 function App() {
 	return (
@@ -18,9 +17,6 @@ function App() {
 					</Route>
 					<Route path="/join">
 						<Join/>
-					</Route>
-					<Route path="/game/:id/waitingRoom">
-						<WaitingRoom/>
 					</Route>
 					<Route path="/game/:id">
 						<Game/>
