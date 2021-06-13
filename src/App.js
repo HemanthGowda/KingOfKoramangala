@@ -1,6 +1,6 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {Join} from "./routes/join/join";
+import Join from "./routes/join/join";
 import {Home} from "./routes/home/home";
 import {Create} from "./routes/create/create";
 import Game from "./routes/game/game";
