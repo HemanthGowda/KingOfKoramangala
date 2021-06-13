@@ -15,15 +15,18 @@ export default class Game extends React.Component {
 				{id: 3, selected: true, value: undefined},
 				{id: 4, selected: true, value: undefined},
 				{id: 5, selected: true, value: undefined}
-			]
+			],
+			numberOfTimesRolled: 0
 		}
 	}
 
 	rollDice = () => {
+		let changed = false;
 		let updatedDice = map(this.state.dice, (diceValue) => {
 			if (!diceValue.selected) {
 				return {selected: false, value: diceValue.value, id: diceValue.id}
 			}
+			changed = true;
 			return ({
 				id: diceValue.id,
 				selected: false,
@@ -31,7 +34,9 @@ export default class Game extends React.Component {
 			});
 		});
 
-		this.setState({dice: updatedDice})
+		if (changed) {
+			this.setState({dice: updatedDice, numberOfTimesRolled: this.state.numberOfTimesRolled + 1})
+		}
 	}
 
 	onSelectDice = (die) => {
@@ -47,10 +52,11 @@ export default class Game extends React.Component {
 	}
 
 	render() {
-		const {dice} = this.state;
+		const {dice, numberOfTimesRolled} = this.state;
 		return <Container className={"board-container"}>
 			<Row>
-				<Button variant={"danger"} onClick={this.rollDice}>Roll Dice</Button>
+				<Button variant={"danger"} onClick={this.rollDice} disabled={numberOfTimesRolled >= 3}>Roll
+					Dice</Button>
 			</Row>
 			<Row className={"excess"}>
 
