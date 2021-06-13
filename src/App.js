@@ -4,6 +4,7 @@ import {Join} from "./routes/join/join";
 import {Home} from "./routes/home/home";
 import {Create} from "./routes/create/create";
 import Game from "./routes/game/game";
+import {WaitingRoom} from "./routes/waiting/waitingRoom";
 
 function App() {
 	return (
@@ -13,10 +14,13 @@ function App() {
             renders the first one that matches the current URL. */}
 				<Switch>
 					<Route path="/create">
-						<Create />
+						<Create/>
 					</Route>
 					<Route path="/join">
 						<Join/>
+					</Route>
+					<Route path="/game/:id/waitingRoom">
+						<WaitingRoom />
 					</Route>
 					<Route path="/game/:id">
 						<Game/>
