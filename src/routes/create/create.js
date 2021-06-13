@@ -12,7 +12,7 @@ export function Create() {
 		if (userName.length > 0) {
 			const roomName = randomstring.generate(5);
 			await createGame(roomName);
-			await createPlayer(roomName, userName);
+			await createPlayer(roomName, userName, true);
 
 			history.push("/game/" + roomName);
 		} else {
