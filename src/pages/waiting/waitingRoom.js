@@ -10,21 +10,22 @@ import db from "../../firebase/db";
 function WaitingRoom(props) {
 	const dispatch = useDispatch()
 
-	const onGameUpdate = (snapshot) => {
-		dispatch(updateGame(snapshot.val()))
+	const onRoomUpdate = (snapshot) => {
+		if (snapshot.exists()) {
+			dispatch(updateGame(snapshot.val()))
+		}
 	};
 
 	useEffect(() => {
 		dispatch(fetchGameRoom(props.match.params.id))
 
-		db.ref(`/games/${props.match.params.id}`).on('value', onGameUpdate)
+		db.ref(`/rooms/${props.match.params.id}`).on('value', onRoomUpdate)
 		return () => {
-			db.ref(`/games/${props.match.params.id}`).off('value', onGameUpdate)
+			db.ref(`/rooms/${props.match.params.id}`).off('value', onRoomUpdate)
 		}
 	}, [])
 
 	const game = useSelector(selectGame);
-	console.log(game)
 	return game ? <Container>
 		<Row>
 			<Col md={{span: 4, offset: 4}}>

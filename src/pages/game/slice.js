@@ -1,10 +1,10 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import {getGame} from "../../firebase/game";
+import {getRoom} from "../../firebase/game";
 
 export const fetchGameRoom = createAsyncThunk(
 	'rooms/fetchByName',
 	async (roomName) => {
-		let game = await getGame(roomName);
+		let game = await getRoom(roomName);
 		return game.val()
 	}
 )

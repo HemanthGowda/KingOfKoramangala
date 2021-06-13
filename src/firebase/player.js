@@ -1,10 +1,10 @@
 import database from "./db"
 import {v4 as uuid} from 'uuid';
 
-export const createPlayer = async (gameId, userName, facilitator) => {
-	return await database.ref('games/' + gameId).once('value').then((snapshot) => {
+export const createPlayer = async (roomName, userName, facilitator) => {
+	return await database.ref('rooms/' + roomName).once('value').then((snapshot) => {
 		if (snapshot.exists()) {
-			return database.ref('games/' + gameId + "/players/" + uuid()).set({
+			return database.ref('rooms/' + roomName + "/players/" + uuid()).set({
 				name: userName,
 				currentHealth: 10,
 				currentScore: 0,

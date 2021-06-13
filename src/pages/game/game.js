@@ -3,7 +3,7 @@ import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import "./game.css"
 import {Player} from "../../components/player/player";
-import {getGame} from "../../firebase/game";
+import {getRoom} from "../../firebase/game";
 import {values} from "lodash";
 import Board from "../../components/board/board";
 import {withRouter} from "react-router-dom";
@@ -18,7 +18,7 @@ class Game extends React.Component {
 
 	async componentDidMount() {
 		let roomName = this.props.match.params.id;
-		let game = await getGame(roomName);
+		let game = await getRoom(roomName);
 		if (!game.started) {
 			this.props.history.push("/game/" + roomName + "/waitingRoom")
 			return
