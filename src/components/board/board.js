@@ -9,12 +9,12 @@ export default class Game extends React.Component {
 		super(props);
 		this.state = {
 			dice: [
-				{selected: true, value: undefined},
-				{selected: true, value: undefined},
-				{selected: true, value: undefined},
-				{selected: true, value: undefined},
-				{selected: true, value: undefined},
-				{selected: true, value: undefined}
+				{id: 0, selected: true, value: undefined},
+				{id: 1, selected: true, value: undefined},
+				{id: 2, selected: true, value: undefined},
+				{id: 3, selected: true, value: undefined},
+				{id: 4, selected: true, value: undefined},
+				{id: 5, selected: true, value: undefined}
 			]
 		}
 	}
@@ -22,15 +22,28 @@ export default class Game extends React.Component {
 	rollDice = () => {
 		let updatedDice = map(this.state.dice, (diceValue) => {
 			if (!diceValue.selected) {
-				return {selected: false, value: diceValue.value}
+				return {selected: false, value: diceValue.value, id: diceValue.id}
 			}
 			return ({
+				id: diceValue.id,
 				selected: false,
 				value: Math.floor(Math.random() * 6) + 1
 			});
 		});
 
 		this.setState({dice: updatedDice})
+	}
+
+	onSelectDice = (die) => {
+		return () => {
+			let updatedDice = map(this.state.dice, (diceValue) => {
+				if (diceValue.id === die.id) {
+					return {selected: !diceValue.selected, value: diceValue.value, id: diceValue.id}
+				}
+				return diceValue
+			});
+			this.setState({dice: updatedDice})
+		}
 	}
 
 	render() {
@@ -43,7 +56,9 @@ export default class Game extends React.Component {
 
 			</Row>
 			<Row className={"dice-container"}>
-				{dice.map((die, i) => <Dice die={die} key={i}/>)}
+				{dice.map((die) => {
+					return <Dice die={die} key={die.id} onSelect={this.onSelectDice(die)}/>;
+				})}
 			</Row>
 		</Container>
 	}
