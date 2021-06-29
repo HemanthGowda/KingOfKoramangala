@@ -14,7 +14,7 @@ export function CurrentPlayer(props) {
 				{player.currentHealth} <AiFillHeart className={"health-icon"}/>
 				{
 					game.currentPlayerPosition === player.tablePosition ?
-						<CurrentPlayerActions game={game}/> :
+						<CurrentPlayerActions game={game} player={player}/> :
 						null
 				}
 			</Card.Header>

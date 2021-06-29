@@ -1,14 +1,39 @@
 import React from "react";
 import {Button} from "react-bootstrap";
 import "./player.css"
-import {cloneDeep, keys, map} from "lodash";
+import {cloneDeep, countBy, each, keys, map} from "lodash";
 import {updateRoom} from "../../firebase/game";
+import {selectPlayerId} from "../../reducers/player";
+import {useSelector} from "react-redux";
+import {updatePlayer} from "../../firebase/player";
 
 export function CurrentPlayerActions(props) {
-	const {game} = props
+	const {game, player} = props
+
+	const playerId = useSelector(selectPlayerId)
 
 	const endTurn = async () => {
 		let clonedGame = cloneDeep(game);
+
+		let score = 0;
+		each(countBy(clonedGame.currentPlay.dice, "value"), (v, k) => {
+			switch (v) {
+				case 3:
+					score += parseInt(k)
+					break
+				case 4:
+					score += parseInt(k) + 1
+					break
+				case 5:
+					score += parseInt(k) + 2
+					break
+				case 6:
+					score += parseInt(k) + 3
+					break
+			}
+		})
+
+
 		await updateRoom(clonedGame.name, {
 			...clonedGame,
 			currentPlay: {
@@ -24,6 +49,8 @@ export function CurrentPlayerActions(props) {
 			},
 			currentPlayerPosition: (game.currentPlayerPosition + 1) % keys(game.players).length
 		})
+
+		await updatePlayer(game.name, playerId, {...player, currentScore: player.currentScore + score})
 	}
 
 	const rollDice = async () => {
