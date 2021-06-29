@@ -11,6 +11,7 @@ import db from "../../firebase/db";
 import WaitingRoom from "./waitingRoom";
 import {selectPlayer, updatePlayerId} from "../../reducers/player";
 import {sortBy, values} from "lodash"
+import {CurrentPlayer} from "../../components/player/currentPlayer";
 
 function Game(props) {
 	const dispatch = useDispatch()
@@ -55,10 +56,10 @@ function Game(props) {
 					<Player player={players[(me.tablePosition + 3) % 6]}/>
 				</Row>
 				<Row className={"board"}>
-					<Board/>
+					<Board game={game}/>
 				</Row>
 				<Row className={"horizontal-player"}>
-					<Player player={players[me.tablePosition]}/>
+					<CurrentPlayer player={players[me.tablePosition]} game={game}/>
 				</Row>
 			</Col>
 			<Col xs={2} className={"player-layout"}>

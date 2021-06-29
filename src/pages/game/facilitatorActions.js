@@ -6,7 +6,6 @@ import {updateRoom} from "../../firebase/game";
 export default function FacilitatorActions(props) {
 	const {onReady, game, player: me} = props;
 
-
 	const startGame = async function () {
 		const clonedGame = cloneDeep(game)
 
@@ -17,7 +16,7 @@ export default function FacilitatorActions(props) {
 			index += 1
 		});
 
-		await updateRoom(clonedGame.name, {...clonedGame, started: true})
+		await updateRoom(clonedGame.name, {...clonedGame, started: true, currentPlayerPosition: 0})
 	}
 
 	const isEveryoneReady = function () {
