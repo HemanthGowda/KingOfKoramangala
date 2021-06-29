@@ -24,7 +24,7 @@ export function Create() {
 			let id = uuid()
 			await createPlayer(id, roomName, playerName, true);
 			dispatch(updatePlayerId(id))
-			history.push("/game/" + roomName + "/waitingRoom");
+			history.push("/game/" + roomName);
 		} else {
 			setError("Player name is required")
 		}

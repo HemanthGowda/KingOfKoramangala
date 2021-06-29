@@ -23,7 +23,7 @@ function Join(props) {
 		if (response) {
 			setError(response.error)
 		} else {
-			props.history.push("/game/" + roomName + "/waitingRoom")
+			props.history.push("/game/" + roomName)
 		}
 	}
 

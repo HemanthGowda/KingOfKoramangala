@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchGameRoom, selectGame, updateGame} from "../../reducers/game";
 import db from "../../firebase/db";
 import WaitingRoom from "./waitingRoom";
-import {selectPlayer} from "../../reducers/player";
+import {selectPlayer, updatePlayerId} from "../../reducers/player";
 
 function Game(props) {
 	const dispatch = useDispatch()
@@ -21,6 +21,7 @@ function Game(props) {
 	};
 
 	useEffect(() => {
+		dispatch(updatePlayerId(sessionStorage.getItem("playerId")))
 		dispatch(fetchGameRoom(props.match.params.id))
 
 		db.ref(`/rooms/${props.match.params.id}`).on('value', onGameUpdate)

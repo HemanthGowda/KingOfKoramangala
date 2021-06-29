@@ -18,3 +18,7 @@ export const createPlayer = async (id, roomName, userName, facilitator) => {
 		}
 	});
 }
+
+export const updatePlayer = async (roomName, id, payload) => {
+	return database.ref('rooms/' + roomName + "/players/" + id).set(payload)
+}
