@@ -10,6 +10,7 @@ import {fetchGameRoom, selectGame, updateGame} from "../../reducers/game";
 import db from "../../firebase/db";
 import WaitingRoom from "./waitingRoom";
 import {selectPlayer, updatePlayerId} from "../../reducers/player";
+import {values} from "lodash"
 
 function Game(props) {
 	const dispatch = useDispatch()
@@ -37,7 +38,8 @@ function Game(props) {
 		return null
 	}
 
-	const {players} = game
+	const players = values(game.players)
+
 	return game.started ? <Container>
 		<Row>
 			<Col xs={2} className={"player-layout"}>
