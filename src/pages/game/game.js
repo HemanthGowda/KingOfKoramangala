@@ -10,7 +10,7 @@ import {fetchGameRoom, selectGame, updateGame} from "../../reducers/game";
 import db from "../../firebase/db";
 import WaitingRoom from "./waitingRoom";
 import {selectPlayer, updatePlayerId} from "../../reducers/player";
-import {values} from "lodash"
+import {sortBy, values} from "lodash"
 
 function Game(props) {
 	const dispatch = useDispatch()
@@ -32,45 +32,45 @@ function Game(props) {
 	}, [])
 
 	const game = useSelector(selectGame);
-	const player = useSelector(selectPlayer);
+	const me = useSelector(selectPlayer);
 
 	if (!game) {
 		return null
 	}
 
-	const players = values(game.players)
+	const players = sortBy(values(game.players), "tablePosition")
 
 	return game.started ? <Container>
 		<Row>
 			<Col xs={2} className={"player-layout"}>
 				<Row className={"vertical-player"}>
-					<Player player={players[0]}/>
+					<Player player={players[(me.tablePosition + 2) % 6]}/>
 				</Row>
 				<Row className={"vertical-player"}>
-					<Player player={players[1]}/>
+					<Player player={players[(me.tablePosition + 1) % 6]}/>
 				</Row>
 			</Col>
 			<Col xs={8} className={"board-layout"}>
 				<Row className={"horizontal-player"}>
-					<Player player={players[2]}/>
+					<Player player={players[(me.tablePosition + 3) % 6]}/>
 				</Row>
 				<Row className={"board"}>
 					<Board/>
 				</Row>
 				<Row className={"horizontal-player"}>
-					<Player player={players[3]}/>
+					<Player player={players[me.tablePosition]}/>
 				</Row>
 			</Col>
 			<Col xs={2} className={"player-layout"}>
 				<Row className={"vertical-player"}>
-					<Player player={players[4]}/>
+					<Player player={players[(me.tablePosition + 4) % 6]}/>
 				</Row>
 				<Row className={"vertical-player"}>
-					<Player player={players[5]}/>
+					<Player player={players[(me.tablePosition + 5) % 6]}/>
 				</Row>
 			</Col>
 		</Row>
-	</Container> : <WaitingRoom game={game} player={player}/>
+	</Container> : <WaitingRoom game={game} player={me}/>
 }
 
 export default withRouter(Game)
