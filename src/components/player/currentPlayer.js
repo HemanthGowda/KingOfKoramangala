@@ -10,7 +10,7 @@ export function CurrentPlayer(props) {
 	return !player ? null :
 		<Card style={{width: "100%"}}>
 			<Card.Header>
-				{player.currentScore} <AiFillStar className={"star-icon"}/>
+				{player.points} <AiFillStar className={"star-icon"}/>
 				{player.currentHealth} <AiFillHeart className={"health-icon"}/>
 				{
 					game.currentPlayerPosition === player.tablePosition ?

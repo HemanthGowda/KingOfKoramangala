@@ -6,7 +6,7 @@ export const createPlayer = async (id, roomName, userName, facilitator) => {
 			return database.ref('rooms/' + roomName + "/players/" + id).set({
 				name: userName,
 				currentHealth: 10,
-				currentScore: 0,
+				points: 0,
 				state: "waiting",
 				takingTurn: false,
 				facilitator: facilitator || false
