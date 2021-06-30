@@ -6,14 +6,14 @@ export const createRoom = async (roomName) => {
 		started: false,
 		players: [],
 		currentPlay: {
-			dice: {
-				0: {selected: true, value: -1, diceNumber: 1},
-				1: {selected: true, value: -1, diceNumber: 2},
-				2: {selected: true, value: -1, diceNumber: 3},
-				3: {selected: true, value: -1, diceNumber: 4},
-				4: {selected: true, value: -1, diceNumber: 5},
-				5: {selected: true, value: -1, diceNumber: 6},
-			},
+			dice: [
+				{selected: true, value: -1, diceNumber: 1},
+				{selected: true, value: -1, diceNumber: 2},
+				{selected: true, value: -1, diceNumber: 3},
+				{selected: true, value: -1, diceNumber: 4},
+				{selected: true, value: -1, diceNumber: 5},
+				{selected: true, value: -1, diceNumber: 6},
+			],
 			numberOfTimesRolled: 0
 		}
 	});

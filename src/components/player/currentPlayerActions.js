@@ -37,14 +37,14 @@ export function CurrentPlayerActions(props) {
 		await updateRoom(clonedGame.name, {
 			...clonedGame,
 			currentPlay: {
-				dice: {
-					0: {selected: true, value: -1, diceNumber: 1},
-					1: {selected: true, value: -1, diceNumber: 2},
-					2: {selected: true, value: -1, diceNumber: 3},
-					3: {selected: true, value: -1, diceNumber: 4},
-					4: {selected: true, value: -1, diceNumber: 5},
-					5: {selected: true, value: -1, diceNumber: 6},
-				},
+				dice: [
+					{selected: true, value: -1, diceNumber: 1},
+					{selected: true, value: -1, diceNumber: 2},
+					{selected: true, value: -1, diceNumber: 3},
+					{selected: true, value: -1, diceNumber: 4},
+					{selected: true, value: -1, diceNumber: 5},
+					{selected: true, value: -1, diceNumber: 6},
+				],
 				numberOfTimesRolled: 0
 			},
 			currentPlayerPosition: (game.currentPlayerPosition + 1) % keys(game.players).length
