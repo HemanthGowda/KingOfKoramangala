@@ -8,7 +8,8 @@ export default class GameService {
 	}
 
 	getWinnerName = () => {
-		return this.#game.players ? find(this.#game.players, (p) => (p.points > 19)).name : undefined
+		let winner = find(this.#game.players, (p) => (p.points > 19));
+		return winner ? winner.name : undefined
 	}
 
 	endTurn = () => {
