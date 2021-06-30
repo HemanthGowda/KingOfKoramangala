@@ -7,6 +7,10 @@ export default class GameService {
 		this.#game = Object.assign({}, cloneDeep(game));
 	}
 
+	getWinnerName = () => {
+		return this.#game.players ? find(this.#game.players, (p) => (p.points > 19)).name : undefined
+	}
+
 	endTurn = () => {
 		return this
 			.#calculatePoints()
@@ -30,6 +34,15 @@ export default class GameService {
 		this.#game.currentPlay.numberOfTimesRolled += 1
 
 		return this.#returnGame()
+	}
+
+	restart = () => {
+		return this
+			.#resetGameStatus()
+			.#resetCurrentPlay()
+			.#resetCurrentPlayerPosition()
+			.#resetPlayerStats()
+			.#returnGame()
 	}
 
 	#returnGame = () => this.#game;
@@ -92,6 +105,26 @@ export default class GameService {
 		if (currentPlayer.points >= 20) {
 			this.#game.finished = true
 		}
+		return this
+	}
+
+	#resetGameStatus = () => {
+		this.#game.finished = false
+		this.#game.started = false
+		return this
+	}
+
+	#resetPlayerStats = () => {
+		each(this.#game.players, (v) => {
+			v.currentHealth = 10
+			v.points = 0
+			v.state = "waiting"
+		})
+		return this
+	}
+
+	#resetCurrentPlayerPosition = () => {
+		this.#game.currentPlayerPosition = 0
 		return this
 	}
 }

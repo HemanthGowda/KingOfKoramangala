@@ -8,7 +8,6 @@ export const createPlayer = async (id, roomName, userName, facilitator) => {
 				currentHealth: 10,
 				points: 0,
 				state: "waiting",
-				takingTurn: false,
 				facilitator: facilitator || false
 			})
 		} else {

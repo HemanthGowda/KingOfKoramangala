@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 
-import {Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Container, Modal, Row} from "react-bootstrap";
 import "./game.css"
 import {Player} from "../../components/player/player";
 import Board from "../../components/board/board";
@@ -12,15 +12,26 @@ import WaitingRoom from "./waitingRoom";
 import {selectPlayer, updatePlayerId} from "../../reducers/player";
 import {sortBy, values} from "lodash"
 import {CurrentPlayer} from "../../components/player/currentPlayer";
+import GameService from "../../services/gameService";
+import {updateRoom} from "../../firebase/game";
 
 function Game(props) {
 	const dispatch = useDispatch()
+	const game = useSelector(selectGame);
+	const me = useSelector(selectPlayer);
+	const gameService = new GameService(game);
 
 	const onGameUpdate = (snapshot) => {
 		if (snapshot.exists()) {
 			dispatch(updateGame(snapshot.val()))
 		}
 	};
+
+	const onRestart = async () => {
+		let updatedGame = gameService.restart()
+
+		await updateRoom(game.name, updatedGame)
+	}
 
 	useEffect(() => {
 		dispatch(updatePlayerId(sessionStorage.getItem("playerId")))
@@ -32,8 +43,6 @@ function Game(props) {
 		}
 	}, [])
 
-	const game = useSelector(selectGame);
-	const me = useSelector(selectPlayer);
 
 	if (!game) {
 		return null
@@ -71,6 +80,20 @@ function Game(props) {
 				</Row>
 			</Col>
 		</Row>
+
+		<Modal show={game.finished}>
+			<Modal.Header>
+				<Modal.Title>Game Over!</Modal.Title>
+			</Modal.Header>
+
+			<Modal.Body>
+				<p>{gameService.getWinnerName()} is the King of Koramangala</p>
+			</Modal.Body>
+
+			<Modal.Footer>
+				{me.facilitator ? <Button variant="primary" onClick={onRestart}>Restart</Button> : null}
+			</Modal.Footer>
+		</Modal>
 	</Container> : <WaitingRoom game={game} player={me}/>
 }
 
