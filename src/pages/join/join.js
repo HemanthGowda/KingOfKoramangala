@@ -1,4 +1,4 @@
-import {Alert, Button, Col, Container, FormControl, Row} from "react-bootstrap";
+import {Alert, Button, Col, Container, Form, Row} from "react-bootstrap";
 import {createPlayer} from "../../firebase/player";
 import {withRouter} from 'react-router-dom'
 import {useState} from "react";
@@ -12,55 +12,62 @@ function Join(props) {
 	const [loading, setLoading] = useState(false);
 	const [playerName, setPlayerName] = useState("");
 	const [roomName, setRoomName] = useState(props.match.params.roomName);
+	const [validated, setValidated] = useState(false);
 
-	const joinGame = async () => {
+	const joinGame = async (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+
 		setLoading(true)
-		let id = uuid()
-		const response = await createPlayer(id, roomName, playerName);
-		dispatch(updatePlayerId(id))
-
-		setLoading(false)
-		if (response) {
-			setError(response.error)
+		setValidated(true);
+		if (!e.currentTarget.checkValidity()) {
+			setLoading(false)
 		} else {
-			props.history.push("/room/" + roomName)
+			let id = uuid()
+			const response = await createPlayer(id, roomName, playerName);
+			console.log(response)
+			dispatch(updatePlayerId(id))
+
+			setLoading(false)
+			if (response) {
+				setError(response.error)
+			} else {
+				props.history.push("/room/" + roomName)
+			}
 		}
 	}
 
 	return <Container fluid>
 		<Row className="justify-content-md-center">
-			<Col sm={5}>
+			<Col sm={2}>
 				{error ? <Alert variant="danger" onClose={() => setError(undefined)} dismissible>
 					<Alert.Heading>{error}</Alert.Heading>
 				</Alert> : null}
-
-				<Row>
-					<FormControl
-						placeholder="Player Name"
-						aria-label="Player Name"
-						onChange={e => {
+				<Form className={"w-100"} onSubmit={joinGame} noValidate validated={validated}>
+					<Form.Group>
+						<Form.Label>Player Name</Form.Label>
+						<Form.Control type="text" placeholder="Thor" required onChange={e => {
 							setError(undefined)
 							setPlayerName(e.target.value)
-						}}
-						value={playerName}
-					/>
-				</Row>
-				<Row>
-					<FormControl
-						placeholder="Room Name"
-						aria-label="Room Name"
-						onChange={(e) => {
+						}}/>
+						<Form.Control.Feedback type="invalid">
+							Please enter valid player name.
+						</Form.Control.Feedback>
+					</Form.Group>
+					<Form.Group>
+						<Form.Label>Room Name</Form.Label>
+						<Form.Control type="text" value={roomName} required onChange={e => {
 							setError(undefined)
-							setRoomName(e.target.value);
-						}}
-						value={roomName}
-					/>
-				</Row>
-				<Row>
-					<Button margin="auto" variant="outline-primary" onClick={joinGame}>
+							setRoomName(e.target.value)
+						}}/>
+						<Form.Control.Feedback type="invalid">
+							Please enter valid room name.
+						</Form.Control.Feedback>
+					</Form.Group>
+					<Button type={"submit"} margin="auto" variant="outline-primary" className={"float-right"}>
 						{loading ? 'Joining…' : 'Join Room'}
 					</Button>
-				</Row>
+				</Form>
 			</Col>
 		</Row>
 	</Container>;
