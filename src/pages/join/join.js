@@ -11,7 +11,7 @@ function Join(props) {
 	const [error, setError] = useState(undefined);
 	const [loading, setLoading] = useState(false);
 	const [playerName, setPlayerName] = useState("");
-	const [roomName, setRoomName] = useState("");
+	const [roomName, setRoomName] = useState(props.match.params.roomName);
 
 	const joinGame = async () => {
 		setLoading(true)
@@ -42,6 +42,7 @@ function Join(props) {
 							setError(undefined)
 							setPlayerName(e.target.value)
 						}}
+						value={playerName}
 					/>
 				</Row>
 				<Row>
@@ -52,6 +53,7 @@ function Join(props) {
 							setError(undefined)
 							setRoomName(e.target.value);
 						}}
+						value={roomName}
 					/>
 				</Row>
 				<Row>

@@ -4,9 +4,9 @@ import {Button, Col, Container, Modal, Row} from "react-bootstrap";
 import "./game.css"
 import {Player} from "../../components/player/player";
 import Board from "../../components/board/board";
-import {withRouter} from "react-router-dom";
+import {useHistory, withRouter} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchGameRoom, selectGame, updateGame} from "../../reducers/game";
+import {fetchGameRoom, isLoading, selectGame, updateGame} from "../../reducers/game";
 import db from "../../firebase/db";
 import WaitingRoom from "./waitingRoom";
 import {selectPlayer, updatePlayerId} from "../../reducers/player";
@@ -14,11 +14,14 @@ import {sortBy, values} from "lodash"
 import {CurrentPlayer} from "../../components/player/currentPlayer";
 import GameService from "../../services/gameService";
 import {updateRoom} from "../../firebase/game";
+import GameNotFound from "../../components/gameNotFound";
 
 function Game(props) {
 	const dispatch = useDispatch()
+	const history = useHistory();
 	const game = useSelector(selectGame);
 	const me = useSelector(selectPlayer);
+	const loading = useSelector(isLoading);
 	const gameService = new GameService(game);
 
 	const onGameUpdate = (snapshot) => {
@@ -35,17 +38,23 @@ function Game(props) {
 
 	useEffect(() => {
 		dispatch(updatePlayerId(sessionStorage.getItem("playerId")))
-		dispatch(fetchGameRoom(props.match.params.id))
+		dispatch(fetchGameRoom(props.match.params.roomName))
 
-		db.ref(`/rooms/${props.match.params.id}`).on('value', onGameUpdate)
+		db.ref(`/rooms/${props.match.params.roomName}`).on('value', onGameUpdate)
 		return () => {
-			db.ref(`/rooms/${props.match.params.id}`).off('value', onGameUpdate)
+			db.ref(`/rooms/${props.match.params.roomName}`).off('value', onGameUpdate)
 		}
 	}, [])
 
 
-	if (!game) {
+	if (loading) {
 		return null
+	}
+	if (!game.name) {
+		return <GameNotFound/>
+	}
+	if (!me) {
+		history.push("/join/" + game.name);
 	}
 
 	const players = sortBy(values(game.players), "tablePosition")

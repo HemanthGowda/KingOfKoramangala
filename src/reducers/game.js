@@ -17,7 +17,7 @@ const slice = createSlice({
 			name: undefined,
 			players: []
 		},
-		loading: false
+		loading: true
 	},
 	reducers: {
 		updateGame: (state, action) => {
@@ -26,11 +26,11 @@ const slice = createSlice({
 	},
 	extraReducers: {
 		[fetchGameRoom.fulfilled]: (state, action) => {
-			state.game = action.payload
+			if (action.payload) {
+				state.game = action.payload
+			}
+
 			state.loading = false
-		},
-		[fetchGameRoom.pending]: (state, action) => {
-			state.loading = true
 		}
 	}
 })
@@ -40,6 +40,7 @@ export const {updateGame} = slice.actions;
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
 export const selectGame = state => !state.game.loading ? state.game.game : undefined;
+export const isLoading = state => state.game.loading;
 
 
 export default slice.reducer

@@ -15,10 +15,10 @@ function App() {
 					<Route path="/create">
 						<Create/>
 					</Route>
-					<Route path="/join">
+					<Route path="/join/:roomName">
 						<Join/>
 					</Route>
-					<Route path="/game/:id">
+					<Route path="/game/:roomName">
 						<Game/>
 					</Route>
 
