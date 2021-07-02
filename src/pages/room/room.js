@@ -16,7 +16,7 @@ import GameService from "../../services/gameService";
 import {updateRoom} from "../../firebase/game";
 import GameNotFound from "../../components/gameNotFound";
 
-function Game(props) {
+function Room(props) {
 	const dispatch = useDispatch()
 	const history = useHistory();
 	const game = useSelector(selectGame);
@@ -106,4 +106,4 @@ function Game(props) {
 	</Container> : <WaitingRoom game={game} player={me}/>
 }
 
-export default withRouter(Game)
+export default withRouter(Room)

@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Join from "./pages/join/join";
 import {Home} from "./pages/home/home";
 import {Create} from "./pages/create/create";
-import Game from "./pages/game/game";
+import Room from "./pages/room/room";
 
 function App() {
 	return (
@@ -18,8 +18,8 @@ function App() {
 					<Route path="/join/:roomName">
 						<Join/>
 					</Route>
-					<Route path="/game/:roomName">
-						<Game/>
+					<Route path="/room/:roomName">
+						<Room/>
 					</Route>
 
 					{/* If none of the previous pages render anything,

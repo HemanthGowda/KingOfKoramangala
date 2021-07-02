@@ -23,7 +23,7 @@ function Join(props) {
 		if (response) {
 			setError(response.error)
 		} else {
-			props.history.push("/game/" + roomName)
+			props.history.push("/room/" + roomName)
 		}
 	}
 
@@ -47,8 +47,8 @@ function Join(props) {
 				</Row>
 				<Row>
 					<FormControl
-						placeholder="Game Name"
-						aria-label="Game Name"
+						placeholder="Room Name"
+						aria-label="Room Name"
 						onChange={(e) => {
 							setError(undefined)
 							setRoomName(e.target.value);
@@ -58,7 +58,7 @@ function Join(props) {
 				</Row>
 				<Row>
 					<Button margin="auto" variant="outline-primary" onClick={joinGame}>
-						{loading ? 'Joining…' : 'Join Game'}
+						{loading ? 'Joining…' : 'Join Room'}
 					</Button>
 				</Row>
 			</Col>
