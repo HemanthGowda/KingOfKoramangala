@@ -1,8 +1,22 @@
 import database from "./db"
+import {keys} from "lodash";
 
 export const createPlayer = async (id, roomName, userName, facilitator) => {
 	return await database.ref('rooms/' + roomName).once('value').then((snapshot) => {
 		if (snapshot.exists()) {
+			let val = snapshot.val();
+			console.log(val)
+			if (val.started) {
+				return {
+					error: "Game already started"
+				}
+			}
+			if (val.players && keys(val.players).length >= 6) {
+				return {
+					error: "Room is full"
+				}
+			}
+
 			database.ref('rooms/' + roomName + "/players/" + id).set({
 				name: userName,
 				currentHealth: 10,
@@ -12,7 +26,7 @@ export const createPlayer = async (id, roomName, userName, facilitator) => {
 			})
 		} else {
 			return {
-				'error': 'Room Name not found'
+				'error': "Room not found"
 			}
 		}
 	});

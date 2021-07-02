@@ -25,13 +25,12 @@ function Join(props) {
 		} else {
 			let id = uuid()
 			const response = await createPlayer(id, roomName, playerName);
-			console.log(response)
-			dispatch(updatePlayerId(id))
 
 			setLoading(false)
 			if (response) {
 				setError(response.error)
 			} else {
+				dispatch(updatePlayerId(id))
 				props.history.push("/room/" + roomName)
 			}
 		}
