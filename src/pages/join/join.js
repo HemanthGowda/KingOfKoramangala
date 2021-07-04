@@ -5,6 +5,9 @@ import {useState} from "react";
 import {v4 as uuid} from 'uuid';
 import {useDispatch} from "react-redux";
 import {updatePlayerId} from "../../reducers/player";
+import {getRoom} from "../../firebase/game";
+import {fetchGameRoom, updateGame} from "../../reducers/game";
+import {keys} from "lodash";
 
 function Join(props) {
 	const dispatch = useDispatch()
@@ -23,16 +26,31 @@ function Join(props) {
 		if (!e.currentTarget.checkValidity()) {
 			setLoading(false)
 		} else {
-			let id = uuid()
-			const response = await createPlayer(id, roomName, playerName);
-
-			setLoading(false)
-			if (response) {
-				setError(response.error)
-			} else {
-				dispatch(updatePlayerId(id))
-				props.history.push("/room/" + roomName)
+			let game = await getRoom(roomName);
+			if (!game) {
+				setError("Room not found")
+				return
 			}
+			game = game.val()
+
+			if (game.started) {
+				setError("Game already started")
+				return
+			}
+			if (keys(game.players).length > 5) {
+				setError("Room is full")
+				return
+			}
+
+			let id = uuid()
+			await createPlayer(id, roomName, playerName);
+			dispatch(fetchGameRoom(props.match.params.roomName))
+			dispatch(updatePlayerId(id))
+
+			setTimeout(() => {
+				setLoading(false)
+				props.history.push("/room/" + roomName)
+			}, 200)
 		}
 	}
 

@@ -3,7 +3,7 @@ import {Button, Col, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
 import {GiLongAntennaeBug} from "react-icons/all";
 
-export default function GameNotFound(props) {
+export default function RoomNotFound(props) {
 	const history = useHistory();
 
 	const onCreate = () => {

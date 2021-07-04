@@ -14,7 +14,7 @@ import {sortBy, values} from "lodash"
 import {CurrentPlayer} from "../../components/player/currentPlayer";
 import GameService from "../../services/gameService";
 import {updateRoom} from "../../firebase/game";
-import GameNotFound from "../../components/gameNotFound";
+import RoomNotFound from "../../components/roomNotFound";
 
 function Room(props) {
 	const dispatch = useDispatch()
@@ -37,6 +37,7 @@ function Room(props) {
 	}
 
 	useEffect(() => {
+		console.log("inside effect")
 		dispatch(updatePlayerId(sessionStorage.getItem("playerId")))
 		dispatch(fetchGameRoom(props.match.params.roomName))
 
@@ -46,12 +47,12 @@ function Room(props) {
 		}
 	}, [])
 
-
+	console.log(loading, game)
 	if (loading) {
 		return null
 	}
 	if (!game.name) {
-		return <GameNotFound/>
+		return <RoomNotFound/>
 	}
 	if (!me) {
 		history.push("/join/" + game.name);

@@ -5,7 +5,10 @@ export const fetchGameRoom = createAsyncThunk(
 	'rooms/fetchByName',
 	async (roomName) => {
 		let game = await getRoom(roomName);
-		return game.val()
+		if (game) {
+			return game.val()
+		}
+		return undefined
 	}
 )
 
